@@ -82,7 +82,7 @@ int ht_search(HashTable *table, const char *key)
     while (current) {
         if (strcmp(current->key, key) == 0)
             return current->value;
-
+    
         current = current->next;
     }
 
@@ -138,4 +138,20 @@ void ht_free(HashTable *table)
     }
 
     free(table);
+}
+
+/**
+ * Display the hash table content.
+ *
+ * @param table - The hash table to display.
+ */
+void ht_print(HashTable *table)
+{
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        HashNode *current = table->buckets[i];
+        while (current) {
+            printf("Key: %s, Value: %d\n", current->key, current->value);
+            current = current->next;
+        }
+    }
 }

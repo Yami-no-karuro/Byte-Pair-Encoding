@@ -19,20 +19,16 @@ int main()
 
         int pair_count = ht_search(pairs, pair);
         if (pair_count >= 0) {
+            ht_delete(pairs, pair);
             pair_count++;
         } else {
-            pair_count = 0;
+            pair_count = 1;
         }
-
+       
         ht_insert(pairs, pair, pair_count);
     }
 
-    printf("aa: %d\n", ht_search(pairs, "aa"));
-    printf("ab: %d\n", ht_search(pairs, "ab"));
-    printf("bd: %d\n", ht_search(pairs, "bd"));
-    printf("ac: %d\n", ht_search(pairs, "ac"));
-
+    ht_print(pairs);
     ht_free(pairs);
     return 0;
 }
-

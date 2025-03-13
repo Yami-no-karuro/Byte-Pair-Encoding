@@ -22,5 +22,6 @@ void ht_insert(HashTable *table, const char *key, int value);
 int ht_search(HashTable *table, const char *key);
 void ht_delete(HashTable *table, const char *key);
 void ht_free(HashTable *table);
+void ht_print(HashTable *table);
 
 #endif
