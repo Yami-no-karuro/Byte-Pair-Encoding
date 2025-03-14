@@ -7,7 +7,7 @@ int main()
 {
     HashTable *pairs = ht_create();
 
-    char input[] = "aabdaaabaccabaaac";
+    char input[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
     int input_len = strlen(input);
 
     for (int i = 0; i < input_len - 1; i++) {
@@ -28,7 +28,10 @@ int main()
         ht_insert(pairs, pair, pair_count);
     }
 
-    ht_print(pairs);
+    const char *most_recurring_pair = ht_most_recurring_key(pairs);
+    if (null != most_recurring_pair)
+        printf("Most recurring pair: %s\n", most_recurring_pair);
+
     ht_free(pairs);
     return 0;
 }

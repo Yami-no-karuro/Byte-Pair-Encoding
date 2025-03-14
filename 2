@@ -158,7 +158,6 @@ void ht_print(HashTable *table)
 
 /**
  * Finds the key with the highest occurrence value in the hash table.
- * When all the keys occurs just once the function will return NULL as no most recurring key was found.
  *
  * @param table - The hash table to search in.
  * @return - The key with the highest associated value, or NULL if the table is empty.
@@ -166,7 +165,7 @@ void ht_print(HashTable *table)
 const char *ht_most_recurring_key(HashTable *table)
 {
     const char *max_key = NULL;
-    int max_value = 1;
+    int max_value = -1;
 
     for (int i = 0; i < TABLE_SIZE; i++) {
         HashNode *current = table->buckets[i];

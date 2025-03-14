@@ -1,7 +1,7 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
-#define TABLE_SIZE 256
+#define TABLE_SIZE 1024
 #define FNV_OFFSET_BASIS 14695981039346656037U
 #define FNV_PRIME 1099511628211U
 
@@ -23,5 +23,7 @@ int ht_search(HashTable *table, const char *key);
 void ht_delete(HashTable *table, const char *key);
 void ht_free(HashTable *table);
 void ht_print(HashTable *table);
+
+const char *ht_most_recurring_key(HashTable *table);
 
 #endif
