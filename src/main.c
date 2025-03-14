@@ -29,7 +29,7 @@ int main()
     }
 
     const char *most_recurring_pair = ht_most_recurring_key(pairs);
-    if (null != most_recurring_pair)
+    if (NULL != most_recurring_pair)
         printf("Most recurring pair: %s\n", most_recurring_pair);
 
     ht_free(pairs);
