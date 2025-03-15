@@ -111,28 +111,51 @@ char *bpe_encode(char *input)
         return NULL;
     }
 
-    char *new_input = str_replace(input, most_recurring_pair, "1");
-    if (new_input == NULL) {
+    char *encoded = str_replace(input, most_recurring_pair, "1");
+    if (encoded == NULL) {
         ht_free(pairs);
         free(most_recurring_pair);
-        free(new_input);
+        free(encoded);
 
         return NULL;
     }
 
-    bpe_encode(new_input);
-
     ht_free(pairs);
     free(most_recurring_pair);
 
-    return new_input;
+    return encoded;
 }
 
 int main() 
 {
     char input[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    char *bpe_encoded = bpe_encode(input);
-    printf("%s\n", bpe_encoded);
+
+    HashTable *pairs = get_pairs(input);
+    char *most_recurring_pair = get_most_recurring_pair(pairs);
+
+    if (most_recurring_pair == NULL) {
+        ht_free(pairs);
+        free(most_recurring_pair);
+
+        printf("Warning: Unable to get the most recurring pair.\n");
+        return 0;
+    }
+
+    char *encoded = str_replace(input, most_recurring_pair, "1");
+    if (encoded == NULL) {
+        ht_free(pairs);
+        free(most_recurring_pair);
+        free(encoded);
+
+        printf("Warning: Unable to replace the most recurring pair with the token.\n");
+        return 0;
+    }
+
+    printf("Encoded (1-iteration): %s\n", encoded);
+
+    ht_free(pairs);
+    free(most_recurring_pair);
+    free(encoded);
 
     return 0;
 }
