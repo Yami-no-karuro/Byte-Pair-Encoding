@@ -99,28 +99,40 @@ char *str_replace(char *input, char *search, char *replace)
     return new_str;
 }
 
+char *bpe_encode(char *input)
+{
+    HashTable *pairs = get_pairs(input);
+    char *most_recurring_pair = get_most_recurring_pair(pairs);
+
+    if (most_recurring_pair == NULL) {
+        ht_free(pairs);
+        free(most_recurring_pair);
+
+        return NULL;
+    }
+
+    char *new_input = str_replace(input, most_recurring_pair, "1");
+    if (new_input == NULL) {
+        ht_free(pairs);
+        free(most_recurring_pair);
+        free(new_input);
+
+        return NULL;
+    }
+
+    bpe_encode(new_input);
+
+    ht_free(pairs);
+    free(most_recurring_pair);
+
+    return new_input;
+}
+
 int main() 
 {
     char input[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
-    while(1) {
-        HashTable *pairs = get_pairs(input);
-        char *most_recurring_pair = get_most_recurring_pair(pairs);
-
-        if (most_recurring_pair == NULL) {
-            free(pairs);
-            free(most_recurring_pair);
-            break;
-        }
-    
-        char *new_input = str_replace(input, most_recurring_pair, "1");
-        printf("%s\n", new_input);
-
-        free(pairs);
-        free(most_recurring_pair);
-        free(new_input);
-        break;
-    }
+    char *bpe_encoded = bpe_encode(input);
+    printf("%s\n", bpe_encoded);
 
     return 0;
 }
