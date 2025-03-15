@@ -24,6 +24,4 @@ void ht_delete(HashTable *table, const char *key);
 void ht_free(HashTable *table);
 void ht_print(HashTable *table);
 
-const char *ht_most_recurring_key(HashTable *table);
-
 #endif
