@@ -3,6 +3,31 @@
 
 #include "lib/hash_table.h"
 
+/**
+ * Finds the key with the highest occurrence value in the hash table.
+ * When all the keys occurs just once the function will return NULL as no most recurring key was found.
+ *
+ * @param table - The hash table to search in.
+ * @param pair - The most recurring pair.
+ * @return - The key with the highest associated value, or NULL if the table is empty.
+ */
+void compute_most_recurring_pair(HashTable *table, char **pair)
+{
+    int max_value = 1;
+    for (int i = 0; i < TABLE_SIZE; i++) {
+
+        HashNode *current = table->buckets[i];
+        while (current) {
+            if (current->value > max_value) {
+                max_value = current->value;
+                *pair = current->key;
+            }
+
+            current = current->next;
+        }
+    }
+}
+
 int main() 
 {
     HashTable *pairs = ht_create();
@@ -28,7 +53,9 @@ int main()
         ht_insert(pairs, pair, pair_count);
     }
 
-    const char *most_recurring_pair = ht_most_recurring_key(pairs);
+    char *most_recurring_pair = NULL;
+    compute_most_recurring_pair(pairs, &most_recurring_pair);
+
     if (NULL != most_recurring_pair)
         printf("Most recurring pair: %s\n", most_recurring_pair);
 
